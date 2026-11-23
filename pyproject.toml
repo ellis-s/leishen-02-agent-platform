@@ -1,0 +1,27 @@
+[project]
+name = "leishen-02-agent-platform"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "sunhongfei", email = "hongfeisir@163.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.20.1",
+    "asyncmy>=0.2.18",
+    "fastapi[standard]==0.135.1",
+    "loguru>=0.8.0",
+    "sqlalchemy==2.0.48",
+]
+
+[project.scripts]
+leishen-02-agent-platform = "src:main"
+
+[build-system]
+requires = ["uv_build>=0.12.15,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+module-name = "src"
