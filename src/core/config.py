@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     DB_PORT: str = "3306"
     DB_USER: str = "root"
     DB_PASSWORD: str = ""
-    DB_NAME: str = "myapp"
+    DB_NAME: str = "chenguang"
 
     LOG_LEVEL: str = "DEBUG"
     LOG_DIR: str = "logs"

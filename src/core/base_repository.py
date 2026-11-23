@@ -1,5 +1,5 @@
 """
-通用的 CRUD
+通用的 CRUD。
 """
 
 from collections.abc import Sequence

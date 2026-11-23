@@ -4,10 +4,11 @@ from fastapi import FastAPI
 from loguru import logger
 
 from src.core.config import get_settings
-from src.core.exception import register_exception_handler
+from src.core.exceptions import register_exception_handler
 from src.core.logger import setup_logger
 from src.infra.database import my_async_engine
 from src.middelware.logging import LoggingMiddleware
+from src.modules.user.api import router_user
 
 
 @asynccontextmanager
@@ -32,6 +33,10 @@ def create_app() -> FastAPI:
     # 注册异常处理
     register_exception_handler(app)
 
+    # 注册路由
+    app.include_router(router_user, prefix="/api/v1")
+
+    # 注册中间件
     app.add_middleware(LoggingMiddleware)
 
     return app
