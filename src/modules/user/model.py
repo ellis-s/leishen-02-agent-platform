@@ -17,3 +17,6 @@ class User(MyBaseModel):
     )
     hashed_password: Mapped[str] = mapped_column(String(100), comment="密码哈希")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, comment="是否启用")
+    is_superuser: Mapped[bool] = mapped_column(
+        Boolean, default=False, comment="是否是超级管理员"
+    )

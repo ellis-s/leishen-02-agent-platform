@@ -6,6 +6,7 @@ from uuid import uuid4
 from captcha.image import ImageCaptcha
 from redis import Redis
 
+from src.core.exceptions import BizException
 from src.modules.captcha.schema import (
     CaptchaRead,
     CaptchaVerifyRequest,
@@ -65,9 +66,13 @@ class CaptchaService:
         """
         code = await self.redis.get(f"{self.KEY_PREFIX}{request.key}")
 
+        if not code:
+            raise BizException(code=400, message="验证码已过期")
+
         is_correct = code == request.code.lower()
 
-        if is_correct:
-            await self.redis.delete(f"{self.KEY_PREFIX}{request.key}")
+        if not is_correct:
+            raise BizException(code=400, message="验证码错误")
 
+        await self.redis.delete(f"{self.KEY_PREFIX}{request.key}")
         return is_correct
