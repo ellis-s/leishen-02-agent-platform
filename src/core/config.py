@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    APP_NAME: str = "MyAPP"
+    APP_NAME: str = "辰光平台服务端"
     APP_ENV: str = "development"
     APP_DEBUG: bool = True
 
@@ -13,6 +13,12 @@ class Settings(BaseSettings):
     DB_USER: str = "root"
     DB_PASSWORD: str = ""
     DB_NAME: str = "chenguang"
+
+    # Redis配置
+    REDIS_HOST: str = "127.0.0.1"
+    REDIS_PORT: str = "6379"
+    REDIS_PASSWORD: str = ""
+    REDIS_DB: str = "0"
 
     LOG_LEVEL: str = "DEBUG"
     LOG_DIR: str = "logs"

@@ -10,11 +10,13 @@ requires-python = ">=3.12"
 dependencies = [
     "alembic>=1.20.1",
     "asyncmy>=0.2.18",
+    "captcha>=0.7.1",
     "fastapi[standard]==0.135.1",
     "greenlet>=3.5.6",
     "loguru>=0.8.0",
     "pytest>=9.2.0",
     "pytest-asyncio>=1.5.0",
+    "redis>=8.2.0",
     "sqlalchemy==2.0.48",
 ]
 
