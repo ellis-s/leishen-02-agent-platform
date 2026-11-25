@@ -1,8 +1,20 @@
 # leishen-02-agent-platform
 
-## 安装依赖
 
 
+## 本地启动项目
+1. 启动Docker容器
+2. 安装依赖
+3. 启动服务
+
+### 1. 启动Docker容器
+
+```bash
+# 启动Docker容器
+docker-compose up -d
+```
+
+### 2. 安装依赖
 
 ```bash
 # 安装依赖
@@ -16,11 +28,11 @@ pip install -r requirements.txt
 
 
 
-## 启动服务
+### 3. 启动服务
 
 1. 启动服务
    ```bash
-   uvicorn src:app --host 0.0.0.0 --port 8000
+   fastapi dev src/main.py
    ```
 2. 访问服务
    - 访问 [http://localhost:8000/health](http://localhost:8000/health)

@@ -10,7 +10,7 @@ from src.modules.captcha.schema import (
 from src.modules.captcha.service import CaptchaService
 
 
-def get_service(redis: redis.Redis = Depends(get_redis)):
+def get_captcha_service(redis: redis.Redis = Depends(get_redis)):
     """
     获取验证码服务
     """
@@ -22,7 +22,7 @@ captchaRouter = router = APIRouter(prefix="/captcha", tags=["验证码"])
 
 # 生成验证码
 @router.get("/generate", response_model=ResponseSchema[CaptchaRead])
-async def get_captcha(service: CaptchaService = Depends(get_service)):
+async def get_captcha(service: CaptchaService = Depends(get_captcha_service)):
     """
     生成验证码
     """
@@ -36,7 +36,7 @@ async def get_captcha(service: CaptchaService = Depends(get_service)):
 @router.post("/verify", response_model=ResponseSchema[bool])
 async def verify_captcha(
     request: CaptchaVerifyRequest,
-    service: CaptchaService = Depends(get_service),
+    service: CaptchaService = Depends(get_captcha_service),
 ):
     """
     验证验证码

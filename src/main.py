@@ -8,6 +8,7 @@ from src.core.exceptions import register_exception_handler
 from src.core.logger import setup_logger
 from src.infra.database import my_async_engine
 from src.middelware.logging import LoggingMiddleware
+from src.modules.auth.api import auth_router
 from src.modules.captcha.api import captchaRouter
 from src.modules.user.api import router_user
 
@@ -37,6 +38,7 @@ def create_app() -> FastAPI:
     # 注册路由
     app.include_router(router_user, prefix="/api/v1")
     app.include_router(captchaRouter, prefix="/api/v1")
+    app.include_router(auth_router, prefix="/api/v1")
 
     # 注册中间件
     app.add_middleware(LoggingMiddleware)
