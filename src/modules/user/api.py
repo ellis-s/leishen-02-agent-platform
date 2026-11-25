@@ -36,6 +36,7 @@ async def get_me(user: UserRead = Depends(get_current_user)):
   -H 'accept: */*' \
   -H 'Authorization: Bearer <ACCESS_TOKEN>'
     """
+
     return ResponseSchema(data=user)
 
 

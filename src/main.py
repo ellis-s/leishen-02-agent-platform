@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
+from typing import Annotated
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from loguru import logger
 
 from src.core.config import get_settings
@@ -50,5 +51,6 @@ app = create_app()
 
 
 @app.get("/health")
-async def health():
+async def health(aaa: Annotated[str, Query(description="测试参数")] = "hhhh"):
+    print(f"test is ===> {aaa}")
     return {"status": "ok"}

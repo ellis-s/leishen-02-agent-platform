@@ -1,5 +1,4 @@
 from fastapi import Depends, HTTPException
-from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.core.exceptions import BizException
@@ -18,7 +17,6 @@ async def get_current_user(
     """
     try:
         payload = decode_token(token=token)
-        logger.info("payload is  ===>", payload)
         user_id = int(payload.get("sub"))
     except HTTPException:
         raise BizException(code=401, message="token 无效")
