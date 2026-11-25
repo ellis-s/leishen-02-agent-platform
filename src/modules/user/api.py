@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.core.base_schema import ResponseSchema
+from src.core.dps import get_current_user
 from src.infra.database import get_db
 from src.modules.user.schema import UserCreate, UserRead
 from src.modules.user.service import UserService
@@ -18,14 +19,33 @@ async def create_user(
     data: UserCreate,
     svc: UserService = Depends(get_user_service),
 ):
+    """
+    创建用户
+    """
     user = await svc.create_user(data)
     return ResponseSchema(data=UserRead.model_validate(user))
+
+
+# NOTE 这个接口必须要放到  "/{user_id}" 之前
+@router.get("/me", response_model=ResponseSchema[UserRead])
+async def get_me(user: UserRead = Depends(get_current_user)):
+    """
+     @example:
+      curl -X 'GET' \
+  'http://localhost:8000/api/v1/users/me' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer <ACCESS_TOKEN>'
+    """
+    return ResponseSchema(data=user)
 
 
 @router.put("/{user_id}", response_model=ResponseSchema[UserRead])
 async def update_user(
     user_id: int, data: UserCreate, svc: UserService = Depends(get_user_service)
 ):
+    """
+    更新用户信息
+    """
     user = await svc.update_user(user_id, data)
     return ResponseSchema(data=UserRead.model_validate(user))
 
@@ -35,6 +55,9 @@ async def get_user(
     user_id: int,
     svc: UserService = Depends(get_user_service),
 ):
+    """
+    获取用户信息
+    """
     user = await svc.get_user(user_id)
     return ResponseSchema(data=UserRead.model_validate(user))
 
@@ -45,5 +68,8 @@ async def list_users(
     limit: int = 100,
     svc: UserService = Depends(get_user_service),
 ):
+    """
+    获取用户分页查询
+    """
     users = await svc.list_users(offset, limit)
     return ResponseSchema(data=[UserRead.model_validate(u) for u in users])

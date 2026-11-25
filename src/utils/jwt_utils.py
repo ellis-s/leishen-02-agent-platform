@@ -2,9 +2,12 @@ from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import jwt
+from fastapi.security import OAuth2PasswordBearer
 
 from src.core.config import get_settings
 from src.core.exceptions import BizException
+
+outh2_schema = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
 def _resolve_secret_key(secret_key: str | None) -> str:
